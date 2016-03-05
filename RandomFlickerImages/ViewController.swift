@@ -26,38 +26,8 @@ class ViewController: UIViewController {
     
     @IBAction func fetchImagesButtonClicked(sender: UIButton) {
         
-        var methodArguments = [
-            "method": METHOD_NAME,
-            "api_key": API_KEY,
-            "safe_search": SAFE_SEARCH,
-            "extras": EXTRAS,
-            "format": DATA_FORMAT,
-            "nojsoncallback": NO_JSON_CALLBACK
-        ]
-        
-        let searchText = getRandomPhotoIndex()
-        print("Random Text: ", searchText)
-        methodArguments["text"] = searchText
-        
-        FlickrClient.sharedInstance().getImageFromFlickrBySearch(methodArguments) {(success, photos, errorString) in
-            if success {
-                print("photos: ", photos)
-                let imageURL = FlickrClient.sharedInstance().getImageURL(photos!)
-                if let imageData = NSData(contentsOfURL: imageURL!) {
-                    dispatch_async(dispatch_get_main_queue(), {
-                        self.imageView.image = UIImage(data: imageData)
-                    })
-                }
-            } else {
-                print("Error: ", errorString)
-            }
-        }
-    }
-    
-    func getRandomPhotoIndex()-> String {
-        let cityStates = ["Hyderabad, India", "Norfolk, VA", "Syracuse, NY", "Banglore, India"]
-        let randomPhotoIndex = Int(arc4random_uniform(UInt32(cityStates.count)))
-        return cityStates[randomPhotoIndex]
+        let flickrCollectionViewController = storyboard!.instantiateViewControllerWithIdentifier("FlickrCollectionViewController") as! FlickrCollectionViewController
+        self.presentViewController(flickrCollectionViewController, animated: false, completion: nil)
     }
 }
 

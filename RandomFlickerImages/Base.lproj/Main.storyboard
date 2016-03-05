@@ -6,6 +6,75 @@
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
     </dependencies>
     <scenes>
+        <!--Flickr Collection View Controller-->
+        <scene sceneID="PIa-6b-kHy">
+            <objects>
+                <viewController storyboardIdentifier="FlickrCollectionViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="qde-Qg-abk" customClass="FlickrCollectionViewController" customModule="RandomFlickerImages" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="vNS-Uw-82m"/>
+                        <viewControllerLayoutGuide type="bottom" id="OEV-Ll-l4P"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="aik-aK-Oob">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="al6-wM-NFN">
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="152"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="152" id="6CK-ZR-cub"/>
+                                </constraints>
+                                <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="10" minimumInteritemSpacing="10" id="1gF-7m-mNJ">
+                                    <size key="itemSize" width="150" height="150"/>
+                                    <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                                    <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                    <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                </collectionViewFlowLayout>
+                                <cells>
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="FlickrCollectionViewCell" id="6HB-hW-uhD" customClass="FlickrCollectionViewCell" customModule="RandomFlickerImages" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="1" width="150" height="150"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                                            <rect key="frame" x="0.0" y="0.0" width="150" height="150"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="h2H-I5-pk6">
+                                                    <rect key="frame" x="0.0" y="0.0" width="150" height="150"/>
+                                                </imageView>
+                                            </subviews>
+                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                        </view>
+                                        <constraints>
+                                            <constraint firstAttribute="bottom" secondItem="h2H-I5-pk6" secondAttribute="bottom" id="FYl-eg-Phg"/>
+                                            <constraint firstAttribute="trailing" secondItem="h2H-I5-pk6" secondAttribute="trailing" id="W0X-mr-YUq"/>
+                                            <constraint firstItem="h2H-I5-pk6" firstAttribute="leading" secondItem="6HB-hW-uhD" secondAttribute="leading" id="gTx-TS-WmY"/>
+                                            <constraint firstItem="h2H-I5-pk6" firstAttribute="top" secondItem="6HB-hW-uhD" secondAttribute="top" id="vn6-Bo-URX"/>
+                                        </constraints>
+                                        <connections>
+                                            <outlet property="imageView" destination="h2H-I5-pk6" id="2wZ-JY-rQN"/>
+                                        </connections>
+                                    </collectionViewCell>
+                                </cells>
+                                <connections>
+                                    <outlet property="dataSource" destination="qde-Qg-abk" id="MJ6-76-9X5"/>
+                                    <outlet property="delegate" destination="qde-Qg-abk" id="0xs-Wr-On2"/>
+                                </connections>
+                            </collectionView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="trailing" secondItem="al6-wM-NFN" secondAttribute="trailing" id="a4w-0f-dPv"/>
+                            <constraint firstItem="al6-wM-NFN" firstAttribute="leading" secondItem="aik-aK-Oob" secondAttribute="leading" id="rTB-N8-s92"/>
+                            <constraint firstItem="al6-wM-NFN" firstAttribute="top" secondItem="aik-aK-Oob" secondAttribute="top" id="u8b-XN-X4p"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="flickrCollectionView" destination="al6-wM-NFN" id="5Jz-O4-hmq"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="5dR-J8-89M" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="666" y="-527"/>
+        </scene>
         <!--View Controller-->
         <scene sceneID="tne-QT-ifu">
             <objects>
