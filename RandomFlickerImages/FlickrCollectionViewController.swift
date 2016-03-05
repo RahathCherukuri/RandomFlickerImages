@@ -10,59 +10,115 @@ import UIKit
 
 class FlickrCollectionViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource {
     
-    @IBOutlet weak var flickrCollectionView: UICollectionView!
+    var methodArguments = [
+        "method": METHOD_NAME,
+        "api_key": API_KEY,
+        "safe_search": SAFE_SEARCH,
+        "extras": EXTRAS,
+        "format": DATA_FORMAT,
+        "nojsoncallback": NO_JSON_CALLBACK
+    ]
+    
+    @IBOutlet weak var flickrCollectionViewOne: UICollectionView!
+    
+    @IBOutlet weak var flickrCollectionViewTwo: UICollectionView!
     
     override func viewDidLoad() {
-        var methodArguments = [
-            "method": METHOD_NAME,
-            "api_key": API_KEY,
-            "safe_search": SAFE_SEARCH,
-            "extras": EXTRAS,
-            "format": DATA_FORMAT,
-            "nojsoncallback": NO_JSON_CALLBACK
-        ]
+        setFirstCollectionView()
+        setSecondCollectionView()
+    }
+    
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+//        flickrCollectionViewOne.reloadData()
+//        flickrCollectionViewTwo.reloadData()
+    }
+    
+    func setFirstCollectionView() {
         
-        let searchText = getRandomPhotoIndex()
+        let searchText = "NewYork, NY"
         print("Random Text: ", searchText)
         methodArguments["text"] = searchText
         
         FlickrClient.sharedInstance().getImageFromFlickrBySearch(methodArguments) {(success, photos, errorString) in
             if success {
-//                print("photos: ", photos)
-                FlickrClient.sharedInstance().savePhotoData(photos!)
+                FlickrClient.sharedInstance().savePhotoData(photos!, index: 0)
                 dispatch_async(dispatch_get_main_queue(), {
-                    self.flickrCollectionView.reloadData()
+                    self.flickrCollectionViewOne.reloadData()
                 })
             } else {
                 print("Error: ", errorString)
             }
         }
-
     }
     
-    override func viewWillAppear(animated: Bool) {
-        super.viewWillAppear(animated)
-        flickrCollectionView.reloadData()
+    func setSecondCollectionView() {
+        let searchText = "Hyderabad, India"
+        print("Random Text: ", searchText)
+        methodArguments["text"] = searchText
+        
+        FlickrClient.sharedInstance().getImageFromFlickrBySearch(methodArguments) {(success, photos, errorString) in
+            if success {
+                FlickrClient.sharedInstance().savePhotoData(photos!,index: 1)
+                dispatch_async(dispatch_get_main_queue(), {
+                    self.flickrCollectionViewTwo.reloadData()
+                })
+            } else {
+                print("Error: ", errorString)
+            }
+        }
     }
     
     
     func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return photoData.photoArray.count
+        let tag = collectionView.tag
+        if tag == 0 {
+            return Data.DataCollectionViewOne.count
+        } else {
+            return Data.DataCollectionViewTwo.count
+        }
     }
     
     func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCellWithReuseIdentifier("FlickrCollectionViewCell", forIndexPath: indexPath) as! FlickrCollectionViewCell
+        let tag = collectionView.tag
         
-        let photo = photoData.photoArray[indexPath.row]
-        
-        let imageUrlString = photo.url
-        let imageURL = NSURL(string: imageUrlString)
-        if let imageData = NSData(contentsOfURL: imageURL!) {
-            dispatch_async(dispatch_get_main_queue(), {
-                cell.imageView.image = UIImage(data: imageData)
-            })
+        if tag == 0 {
+            let cell = collectionView.dequeueReusableCellWithReuseIdentifier("FlickrCollectionViewCellOne", forIndexPath: indexPath) as! FlickrCollectionViewCell
+            
+            if Data.DataCollectionViewOne.count > 0 {
+                let photo = Data.DataCollectionViewOne[indexPath.row]
+                
+                let imageUrlString = photo.url
+                let imageURL = NSURL(string: imageUrlString)
+                if let imageData = NSData(contentsOfURL: imageURL!) {
+                    dispatch_async(dispatch_get_main_queue(), {
+                        cell.imageViewOne.image = UIImage(data: imageData)
+                    })
+                }
+                return cell
+            } else {
+                return cell
+            }
+            
+        } else {
+            let cell = collectionView.dequeueReusableCellWithReuseIdentifier("FlickrCollectionViewCellTwo", forIndexPath: indexPath) as! FlickrCollectionViewCell
+            
+            if Data.DataCollectionViewTwo.count > 0 {
+                let photo = Data.DataCollectionViewTwo[indexPath.row]
+                
+                let imageUrlString = photo.url
+                let imageURL = NSURL(string: imageUrlString)
+                if let imageData = NSData(contentsOfURL: imageURL!) {
+                    dispatch_async(dispatch_get_main_queue(), {
+                        cell.imageViewTwo.image = UIImage(data: imageData)
+                    })
+                }
+                return cell
+            } else {
+                return cell
+            }
+            
         }
-        return cell
     }
     
     func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
@@ -73,7 +129,7 @@ class FlickrCollectionViewController: UIViewController, UICollectionViewDelegate
     }
     
     func getRandomPhotoIndex()-> String {
-        let cityStates = ["Hyderabad, India", "Norfolk, VA", "Syracuse, NY", "Banglore, India"]
+        let cityStates = ["Hyderabad, India", "Norfolk, VA", "Syracuse, NY", "Banglore, India", "Chennai, India", "Rochester, NY", "NewYork, NY"]
         let randomPhotoIndex = Int(arc4random_uniform(UInt32(cityStates.count)))
         return cityStates[randomPhotoIndex]
     }

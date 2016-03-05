@@ -32,7 +32,7 @@ extension FlickrClient {
         }
     }
     
-    func savePhotoData(photos: [String: AnyObject]) {
+    func savePhotoData(photos: [String: AnyObject], index: Int) {
         let totalPhotosCount = (photos[FlickrClient.JSONResponseKeys.Totalphotos] as? NSString)?.integerValue
         
         if (totalPhotosCount > 0) {
@@ -43,7 +43,13 @@ extension FlickrClient {
                 return
             }
             
-            photoData.photoArray.removeAll()
+//            photoData.multiplePhotoArrays[index].removeAll()
+            if index == 0 {
+                Data.DataCollectionViewOne.removeAll()
+            } else {
+                Data.DataCollectionViewOne.removeAll()
+            }
+            
             for photoDictionary in photosArray {
                 /* GUARD: Does our photo have a key for 'url_m'? */
                 guard let imageUrlString = photoDictionary[FlickrClient.JSONResponseKeys.Url] as? String,
@@ -54,7 +60,16 @@ extension FlickrClient {
                 }
                 photoData(title: photoTitle,url: imageUrlString)
             }
-            print("No of elements in photoData.photoArray.count are: ", photoData.photoArray.count)
+            if index == 0 {
+                Data.DataCollectionViewOne = photoData.photoArray
+            } else {
+                Data.DataCollectionViewTwo = photoData.photoArray
+            }
+            
+            photoData.photoArray.removeAll()
+//            photoData.multiplePhotoArrays.append(photoData.photoArray)
+//            photoData.multiplePhotoArrays[index] = photoData.photoArray
+//            print("No of elements in photoData.photoArray.count are: ", photoData.photoArray.count)
         }
     }
 

@@ -9,7 +9,10 @@
 import Foundation
 
 struct photoData {
+    
+//    static var multiplePhotoArrays : [[photoData]] = []
     static var photoArray: [photoData] = []
+    
     let title: String
     let url: String
     
@@ -18,4 +21,9 @@ struct photoData {
         self.url = url
         photoData.photoArray.append(self)
     }
+}
+
+class Data {
+    static var DataCollectionViewOne: [photoData] = []
+    static var DataCollectionViewTwo: [photoData] = []
 }
