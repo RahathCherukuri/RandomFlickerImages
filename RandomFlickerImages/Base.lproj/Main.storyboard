@@ -19,15 +19,25 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="r7d-pM-YgB">
-                                <rect key="frame" x="150.5" y="149.5" width="300" height="300"/>
+                                <rect key="frame" x="150" y="150" width="300" height="300"/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="r7d-pM-YgB" secondAttribute="height" multiplier="1:1" id="RYp-uh-jam"/>
                                     <constraint firstAttribute="height" constant="300" id="RZt-05-8Av"/>
                                 </constraints>
                             </imageView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xdc-8J-mPh">
+                                <rect key="frame" x="281" y="530" width="39" height="30"/>
+                                <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <state key="normal" title="Fetch"/>
+                                <connections>
+                                    <action selector="fetchImagesButtonClicked:" destination="BYZ-38-t0r" eventType="touchUpInside" id="EVm-ch-26Z"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstItem="xdc-8J-mPh" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="byg-ZA-bmo"/>
+                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="xdc-8J-mPh" secondAttribute="bottom" constant="40" id="ido-Ur-TcI"/>
                             <constraint firstItem="r7d-pM-YgB" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="vro-CV-J1y"/>
                             <constraint firstItem="r7d-pM-YgB" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="wEs-0K-5dK"/>
                         </constraints>
