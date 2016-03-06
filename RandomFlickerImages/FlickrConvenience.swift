@@ -43,7 +43,6 @@ extension FlickrClient {
                 return
             }
             
-//            photoData.multiplePhotoArrays[index].removeAll()
             if index == 0 {
                 Data.DataCollectionViewOne.removeAll()
             } else {
@@ -67,9 +66,6 @@ extension FlickrClient {
             }
             
             photoData.photoArray.removeAll()
-//            photoData.multiplePhotoArrays.append(photoData.photoArray)
-//            photoData.multiplePhotoArrays[index] = photoData.photoArray
-//            print("No of elements in photoData.photoArray.count are: ", photoData.photoArray.count)
         }
     }
 

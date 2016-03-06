@@ -30,8 +30,6 @@ class FlickrCollectionViewController: UIViewController, UICollectionViewDelegate
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
-//        flickrCollectionViewOne.reloadData()
-//        flickrCollectionViewTwo.reloadData()
     }
     
     func setFirstCollectionView() {

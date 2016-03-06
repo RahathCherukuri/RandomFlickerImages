@@ -10,7 +10,6 @@ import Foundation
 
 struct photoData {
     
-//    static var multiplePhotoArrays : [[photoData]] = []
     static var photoArray: [photoData] = []
     
     let title: String
