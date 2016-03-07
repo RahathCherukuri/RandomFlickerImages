@@ -112,14 +112,10 @@
 			isa = PBXGroup;
 			children = (
 				32B3B13E1C8B196D00E3D250 /* AppDelegate.swift */,
-				32B3B1401C8B196D00E3D250 /* ViewController.swift */,
-				32B3B16C1C8B1C0D00E3D250 /* FlickrClient.swift */,
-				32B3B17A1C8B6D5C00E3D250 /* FlickrConstants.swift */,
-				32B3B16E1C8B1C3900E3D250 /* FlickrConvenience.swift */,
-				32B3B1761C8B6A4100E3D250 /* FlickrCollectionViewController.swift */,
+				32B3B1CD1C8D5D2A00E3D250 /* API */,
+				32B3B1CA1C8D5CEB00E3D250 /* ViewControllers */,
+				32B3B1CB1C8D5CED00E3D250 /* Model */,
 				32B3B17C1C8B769000E3D250 /* FlickrCollectionViewCell.swift */,
-				32B3B1741C8B6A0700E3D250 /* FlickrDetailViewController.swift */,
-				32B3B1781C8B6B4700E3D250 /* PhotoData.swift */,
 				32B3B1421C8B196D00E3D250 /* Main.storyboard */,
 				32B3B1451C8B196D00E3D250 /* Assets.xcassets */,
 				32B3B1471C8B196D00E3D250 /* LaunchScreen.storyboard */,
@@ -144,6 +140,34 @@
 				32B3B1601C8B196D00E3D250 /* Info.plist */,
 			);
 			path = RandomFlickerImagesUITests;
+			sourceTree = "<group>";
+		};
+		32B3B1CA1C8D5CEB00E3D250 /* ViewControllers */ = {
+			isa = PBXGroup;
+			children = (
+				32B3B1401C8B196D00E3D250 /* ViewController.swift */,
+				32B3B1761C8B6A4100E3D250 /* FlickrCollectionViewController.swift */,
+				32B3B1741C8B6A0700E3D250 /* FlickrDetailViewController.swift */,
+			);
+			name = ViewControllers;
+			sourceTree = "<group>";
+		};
+		32B3B1CB1C8D5CED00E3D250 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				32B3B1781C8B6B4700E3D250 /* PhotoData.swift */,
+			);
+			name = Model;
+			sourceTree = "<group>";
+		};
+		32B3B1CD1C8D5D2A00E3D250 /* API */ = {
+			isa = PBXGroup;
+			children = (
+				32B3B16C1C8B1C0D00E3D250 /* FlickrClient.swift */,
+				32B3B16E1C8B1C3900E3D250 /* FlickrConvenience.swift */,
+				32B3B17A1C8B6D5C00E3D250 /* FlickrConstants.swift */,
+			);
+			name = API;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

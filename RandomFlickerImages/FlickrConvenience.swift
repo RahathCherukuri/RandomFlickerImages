@@ -46,7 +46,7 @@ extension FlickrClient {
             if index == 0 {
                 Data.DataCollectionViewOne.removeAll()
             } else {
-                Data.DataCollectionViewOne.removeAll()
+                Data.DataCollectionViewTwo.removeAll()
             }
             
             for photoDictionary in photosArray {

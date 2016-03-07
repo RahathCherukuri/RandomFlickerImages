@@ -51,7 +51,7 @@ class FlickrCollectionViewController: UIViewController, UICollectionViewDelegate
     }
     
     func setSecondCollectionView() {
-        let searchText = "Hyderabad, India"
+        let searchText = "yosemite national park, california"
         print("Random Text: ", searchText)
         methodArguments["text"] = searchText
         
