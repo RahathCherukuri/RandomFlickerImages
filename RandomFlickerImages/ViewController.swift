@@ -24,10 +24,10 @@ class ViewController: UIViewController {
         super.viewDidLoad()
     }
     
-    @IBAction func fetchImagesButtonClicked(sender: UIButton) {
+    @IBAction func fetchImagesButtonClicked(_ sender: UIButton) {
         
-        let flickrCollectionViewController = storyboard!.instantiateViewControllerWithIdentifier("FlickrCollectionViewController") as! FlickrCollectionViewController
-        self.presentViewController(flickrCollectionViewController, animated: false, completion: nil)
+        let flickrCollectionViewController = storyboard!.instantiateViewController(withIdentifier: "FlickrCollectionViewController") as! FlickrCollectionViewController
+        self.present(flickrCollectionViewController, animated: false, completion: nil)
     }
 }
 

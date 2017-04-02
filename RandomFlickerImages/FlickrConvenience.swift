@@ -8,37 +8,61 @@
 
 import Foundation
 import UIKit
+// FIXME: comparison operators with optionals were removed from the Swift Standard Libary.
+// Consider refactoring the code to use the non-optional operators.
+fileprivate func < <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
+  switch (lhs, rhs) {
+  case let (l?, r?):
+    return l < r
+  case (nil, _?):
+    return true
+  default:
+    return false
+  }
+}
+
+// FIXME: comparison operators with optionals were removed from the Swift Standard Libary.
+// Consider refactoring the code to use the non-optional operators.
+fileprivate func > <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
+  switch (lhs, rhs) {
+  case let (l?, r?):
+    return l > r
+  default:
+    return rhs < lhs
+  }
+}
+
 
 extension FlickrClient {
     
-    func getImageFromFlickrBySearch(parameters: [String: AnyObject],completionHandler: (success: Bool, results: [String: AnyObject]?, errorString: String?) -> Void) {
+    func getImageFromFlickrBySearch(_ parameters: [String: AnyObject],completionHandler: @escaping (_ success: Bool, _ results: [String: AnyObject]?, _ errorString: String?) -> Void) {
         
         /* 1. Specify parameters, method (if has {key}), and HTTP body (if POST) */
         let method: String = METHOD_NAME
         /* 2. Make the request */
-        taskForGETMethod(method, parameters: parameters) {(JSONResult, error) in
+        _ = taskForGETMethod(method, parameters: parameters) {(JSONResult, error) in
             /* 3. Send the desired value(s) to completion handler */
             if let error = error {
                 print("error: ", error)
-                completionHandler(success: false, results: nil, errorString: "Please check your internet connection and try again.")
+                completionHandler(false, nil, "Please check your internet connection and try again.")
             } else {
                 /* GUARD: Is "photos" key in our result? */
-                guard let photos = JSONResult[FlickrClient.JSONResponseKeys.Photos] as? [String: AnyObject] else {
-                    completionHandler(success: false, results: nil, errorString: "Cannot find keys 'photos'")
+                guard let photos = JSONResult?[FlickrClient.JSONResponseKeys.Photos] as? [String: AnyObject] else {
+                    completionHandler(false, nil, "Cannot find keys 'photos'")
                     return
                 }
-                completionHandler(success: true, results: photos, errorString: nil)
+                completionHandler(true, photos, nil)
             }
         }
     }
     
-    func savePhotoData(photos: [String: AnyObject], index: Int) {
+    func savePhotoData(_ photos: [String: AnyObject], index: Int) {
         let totalPhotosCount = (photos[FlickrClient.JSONResponseKeys.Totalphotos] as? NSString)?.integerValue
         
         if (totalPhotosCount > 0) {
             
             /* GUARD: Is the "photo" key in photosDictionary? */
-            guard let photosArray = photos[FlickrClient.JSONResponseKeys.Photo] as? [[String: AnyObject]] where photosArray.count > 0 else {
+            guard let photosArray = photos[FlickrClient.JSONResponseKeys.Photo] as? [[String: AnyObject]], photosArray.count > 0 else {
                 print("Cannot find key 'photo' in \(photos)")
                 return
             }
@@ -57,7 +81,7 @@ extension FlickrClient {
                         print("Cannot find key 'url_m' in \(photoDictionary)")
                         return
                 }
-                photoData(title: photoTitle,url: imageUrlString)
+                _ = photoData(title: photoTitle,url: imageUrlString)
             }
             if index == 0 {
                 Data.DataCollectionViewOne = photoData.photoArray

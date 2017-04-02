@@ -28,7 +28,7 @@ class FlickrCollectionViewController: UIViewController, UICollectionViewDelegate
         setSecondCollectionView()
     }
     
-    override func viewWillAppear(animated: Bool) {
+    override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
     }
     
@@ -38,14 +38,14 @@ class FlickrCollectionViewController: UIViewController, UICollectionViewDelegate
         print("Random Text: ", searchText)
         methodArguments["text"] = searchText
         
-        FlickrClient.sharedInstance().getImageFromFlickrBySearch(methodArguments) {(success, photos, errorString) in
+        FlickrClient.sharedInstance().getImageFromFlickrBySearch(methodArguments as [String : AnyObject]) {(success, photos, errorString) in
             if success {
                 FlickrClient.sharedInstance().savePhotoData(photos!, index: 0)
-                dispatch_async(dispatch_get_main_queue(), {
+                DispatchQueue.main.async(execute: {
                     self.flickrCollectionViewOne.reloadData()
                 })
             } else {
-                print("Error: ", errorString)
+                print("Error: ", errorString ?? "")
             }
         }
     }
@@ -55,20 +55,20 @@ class FlickrCollectionViewController: UIViewController, UICollectionViewDelegate
         print("Random Text: ", searchText)
         methodArguments["text"] = searchText
         
-        FlickrClient.sharedInstance().getImageFromFlickrBySearch(methodArguments) {(success, photos, errorString) in
+        FlickrClient.sharedInstance().getImageFromFlickrBySearch(methodArguments as [String : AnyObject]) {(success, photos, errorString) in
             if success {
                 FlickrClient.sharedInstance().savePhotoData(photos!,index: 1)
-                dispatch_async(dispatch_get_main_queue(), {
+                DispatchQueue.main.async(execute: {
                     self.flickrCollectionViewTwo.reloadData()
                 })
             } else {
-                print("Error: ", errorString)
+                print("Error: ", errorString ?? "")
             }
         }
     }
     
     
-    func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         let tag = collectionView.tag
         if tag == 0 {
             return Data.DataCollectionViewOne.count
@@ -77,19 +77,19 @@ class FlickrCollectionViewController: UIViewController, UICollectionViewDelegate
         }
     }
     
-    func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let tag = collectionView.tag
         
         if tag == 0 {
-            let cell = collectionView.dequeueReusableCellWithReuseIdentifier("FlickrCollectionViewCellOne", forIndexPath: indexPath) as! FlickrCollectionViewCell
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "FlickrCollectionViewCellOne", for: indexPath) as! FlickrCollectionViewCell
             
             if Data.DataCollectionViewOne.count > 0 {
                 let photo = Data.DataCollectionViewOne[indexPath.row]
                 
                 let imageUrlString = photo.url
-                let imageURL = NSURL(string: imageUrlString)
-                if let imageData = NSData(contentsOfURL: imageURL!) {
-                    dispatch_async(dispatch_get_main_queue(), {
+                let imageURL = URL(string: imageUrlString)
+                if let imageData = try? Foundation.Data(contentsOf: imageURL!) {
+                    DispatchQueue.main.async(execute: {
                         cell.imageViewOne.image = UIImage(data: imageData)
                     })
                 }
@@ -99,15 +99,15 @@ class FlickrCollectionViewController: UIViewController, UICollectionViewDelegate
             }
             
         } else {
-            let cell = collectionView.dequeueReusableCellWithReuseIdentifier("FlickrCollectionViewCellTwo", forIndexPath: indexPath) as! FlickrCollectionViewCell
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "FlickrCollectionViewCellTwo", for: indexPath) as! FlickrCollectionViewCell
             
             if Data.DataCollectionViewTwo.count > 0 {
                 let photo = Data.DataCollectionViewTwo[indexPath.row]
                 
                 let imageUrlString = photo.url
-                let imageURL = NSURL(string: imageUrlString)
-                if let imageData = NSData(contentsOfURL: imageURL!) {
-                    dispatch_async(dispatch_get_main_queue(), {
+                let imageURL = URL(string: imageUrlString)
+                if let imageData = try? Foundation.Data(contentsOf: imageURL!) {
+                    DispatchQueue.main.async(execute: {
                         cell.imageViewTwo.image = UIImage(data: imageData)
                     })
                 }
@@ -119,7 +119,7 @@ class FlickrCollectionViewController: UIViewController, UICollectionViewDelegate
         }
     }
     
-    func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         
 //        let detailController = storyboard!.instantiateViewControllerWithIdentifier("MemeDetailViewController") as! MemeDetailViewController
 //        detailController.selectedIndex = indexPath.row
